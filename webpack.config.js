@@ -1,10 +1,9 @@
 const path = require('path'),
-      webpack = require('webpack'),
-      CleanWebpackPlugin = require('clean-webpack-plugin'),
-      HtmlWebpackPlugin = require('html-webpack-plugin'),
-      ExtractTextPlugin = require('extract-text-webpack-plugin');
+  webpack = require('webpack'),
+  CleanWebpackPlugin = require('clean-webpack-plugin'),
+  HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const extractPlugin = new ExtractTextPlugin({ filename: './assets/css/app.css' });
+// const extractPlugin = new ExtractTextPlugin({ filename: './assets/css/app.css' });
 
 const config = {
 
@@ -13,7 +12,7 @@ const config = {
 
   entry: {
     // relative path declaration
-    app: './app.js'
+    app: './app.js',
   },
 
   output: {
@@ -24,35 +23,51 @@ const config = {
 
   module: {
     rules: [
-
       // babel-loader with 'env' preset
       { test: /\.js$/, include: /src/, exclude: /node_modules/, use: { loader: "babel-loader", options: { presets: ['env'] } } },
       // html-loader
-      { test: /\.html$/, use: ['html-loader'] },
+      {
+        test: /\.html$/,
+        use: [
+          // {
+          //   loader: "file-loader",
+          //   options: {
+          //     name: '[path][name].[ext]',
+          //   }
+          // },
+          // {
+          //   loader: "extract-loader",
+          // },
+          {
+            loader: 'html-loader',
+          }
+        ],
+
+      },
       // sass-loader with sourceMap activated
       {
         test: /\.scss$/,
         include: [path.resolve(__dirname, 'src', 'assets', 'scss')],
-        use: extractPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "/assets/css/[name].css",
             },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ],
-          fallback: 'style-loader'
-        })
+          },
+          {
+            loader: "extract-loader",
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          }
+        ]
       },
       // file-loader(for images)
-      { test: /\.(jpg|png|gif|svg)$/, use: [ { loader: 'file-loader', options: { name: '[name].[ext]', outputPath: './assets/media/' } } ] },
+      { test: /\.(jpg|png|gif|svg)$/, use: [{ loader: 'file-loader', options: { name: '[name].[ext]', outputPath: './assets/media/' } }] },
       // file-loader(for fonts)
       { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] }
 
@@ -61,12 +76,13 @@ const config = {
 
   plugins: [
     // cleaning up only 'dist' folder
+
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
+      loader: "raw-loader",
+      minify: false,
       template: 'index.html'
     }),
-    // extract-text-webpack-plugin instance
-    extractPlugin
   ],
 
   devServer: {
@@ -78,9 +94,6 @@ const config = {
     stats: 'errors-only',
     open: true
   },
-
   devtool: 'inline-source-map'
-
 };
-
 module.exports = config;
