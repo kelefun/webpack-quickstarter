@@ -6,12 +6,13 @@
   "scripts": {
     "build": "webpack --mode development",
     "build:prod": "webpack --mode production -p",
-    "dev": "webpack-dev-server  --mode development --progress"
+    "dev": "webpack-dev-server  --mode development --server --progress"
   },
   "keywords": [],
-  "author": "",
+  "author": "liukaiyang",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^9.3.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
@@ -21,7 +22,9 @@
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.10.0",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
