@@ -18,7 +18,7 @@ const config = {
   output: {
     // absolute path declaration
     path: path.resolve(__dirname, 'dist'),
-    filename: './assets/js/[name].bundle.js'
+    filename: './assets/js/[name].[chunkhash].js'
   },
 
   module: {
