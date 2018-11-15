@@ -29,20 +29,10 @@ const config = {
       {
         test: /\.html$/,
         use: [
-          // {
-          //   loader: "file-loader",
-          //   options: {
-          //     name: '[path][name].[ext]',
-          //   }
-          // },
-          // {
-          //   loader: "extract-loader",
-          // },
           {
-            loader: 'html-loader',
-          }
-        ],
-
+            loader: "html-loader",
+          },
+        ]
       },
       // sass-loader with sourceMap activated
       {
@@ -67,7 +57,7 @@ const config = {
         ]
       },
       // file-loader(for images)
-      { test: /\.(jpg|png|gif|svg)$/, use: [{ loader: 'file-loader', options: { name: '[name].[ext]', outputPath: './assets/media/' } }] },
+      { test: /\.(jpg|png|gif|svg)$/, use: [{ loader: 'url-loader', options: {limit:5120, name: '[name].[ext]', outputPath: './assets/media/' } }] },
       // file-loader(for fonts)
       { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] }
 
@@ -79,7 +69,6 @@ const config = {
 
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      loader: "raw-loader",
       minify: false,
       template: 'index.html'
     }),
