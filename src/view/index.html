@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Webpack 4 Quickstarter</title>
 </head>
+
 <body>
   <h1>Webpack4 QuickStarter Template</h1>
-   ${require("html-loader!./file.html")}
-  <!--${require('html-loader!./header/header.html')} -->
+  ${require('html-loader!../tpl/header/header.html')}
+  ${require("html-loader!../tpl/file.html")}
   <small>打开控制台,看JS是否正确执行</small>
-
-  <img src="${require('./assets/media/7.png')}" alt="webpack">
+  <img src="${require('../assets/media/7.png')}" alt="webpack">
 </body>
+
 </html>

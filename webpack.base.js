@@ -7,7 +7,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
       // relative path declaration
-      app: './app.js',
+      index: './view/index.js',
     },
     output: {
       // absolute path declaration
@@ -44,7 +44,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         minify: false,
-        template: 'index.html',
+        template: './view/index.html',
         loader: 'html-loader'
       }),
     ],
